@@ -135,8 +135,10 @@ body {
 }
 
 .deck-scroll {
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
+  touch-action: pan-y;
 }
 
 .chip-btn:hover {

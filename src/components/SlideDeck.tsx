@@ -23,7 +23,7 @@ import { ProgressBar } from "./ProgressBar"
 export function SlideDeck() {
   const [language, setLanguage] = useState<Language>("en")
   const [current, setCurrent] = useState(0)
-  const touchStartX = useRef(0)
+  const [isMobile, setIsMobile] = useState(false)
   const deckRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
 
@@ -57,13 +57,23 @@ export function SlideDeck() {
   const next = () => setCurrent((c) => (c < total - 1 ? c + 1 : c))
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)")
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches)
+    updateIsMobile()
+    mediaQuery.addEventListener("change", updateIsMobile)
+    return () => mediaQuery.removeEventListener("change", updateIsMobile)
+  }, [])
+
+  useEffect(() => {
+    if (isMobile) return
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") (isRtl ? prev : next)()
       if (e.key === "ArrowLeft") (isRtl ? next : prev)()
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
-  }, [isRtl])
+  }, [isMobile, isRtl])
 
   useEffect(() => {
     document.documentElement.dir = content.dir
@@ -78,16 +88,6 @@ export function SlideDeck() {
     <div
       ref={deckRef}
       className={`deck-scroll relative min-h-[100dvh] overflow-x-hidden overflow-y-auto touch-pan-y ${toneClass} ${isRtl ? "text-right" : "text-left"}`}
-      onTouchStart={(e) => {
-        touchStartX.current = e.changedTouches[0].clientX
-      }}
-      onTouchEnd={(e) => {
-        const delta = e.changedTouches[0].clientX - touchStartX.current
-        if (Math.abs(delta) > 50) {
-          if (delta < 0) (isRtl ? prev : next)()
-          else (isRtl ? next : prev)()
-        }
-      }}
     >
       <ProgressBar current={current} total={total} />
       <div className="fixed left-0 right-0 top-0 z-50 px-3 pt-[max(0.5rem,env(safe-area-inset-top))] md:px-6">
