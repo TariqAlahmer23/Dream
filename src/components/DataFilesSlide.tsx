@@ -20,9 +20,9 @@ export function DataFilesSlide({ content, isRtl }: { content: any; isRtl: boolea
               transition={{ duration: 0.3, delay: i * 0.05 }}
               className={`deck-card p-3.5 ${isRtl ? "text-right" : "text-left"}`}
             >
-              <div className={`mb-2 inline-flex items-center gap-2 text-brand-cyan ${isRtl ? "flex-row-reverse" : ""}`}>
+              <div className={`mb-2 inline-flex min-w-0 items-center gap-2 text-brand-cyan ${isRtl ? "flex-row-reverse" : ""}`}>
                 <FileJson2 size={14} />
-                <p className="truncate font-mono text-[11px] text-brand-text">{file}</p>
+                <p className="min-w-0 truncate font-mono text-[11px] text-brand-text">{file}</p>
               </div>
 
               <div className="space-y-1.5 text-xs">

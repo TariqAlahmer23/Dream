@@ -24,6 +24,7 @@ export function SlideDeck() {
   const [language, setLanguage] = useState<Language>("en")
   const [current, setCurrent] = useState(0)
   const touchStartX = useRef(0)
+  const deckRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
 
   const content = deckContent[language]
@@ -69,9 +70,14 @@ export function SlideDeck() {
     document.documentElement.lang = language
   }, [language, content.dir])
 
+  useEffect(() => {
+    deckRef.current?.scrollTo({ top: 0, behavior: "auto" })
+  }, [current, language])
+
   return (
     <div
-      className={`relative h-[100dvh] overflow-hidden touch-pan-y ${toneClass} ${isRtl ? "text-right" : "text-left"}`}
+      ref={deckRef}
+      className={`deck-scroll relative min-h-[100dvh] overflow-x-hidden overflow-y-auto touch-pan-y ${toneClass} ${isRtl ? "text-right" : "text-left"}`}
       onTouchStart={(e) => {
         touchStartX.current = e.changedTouches[0].clientX
       }}
@@ -84,10 +90,13 @@ export function SlideDeck() {
       }}
     >
       <ProgressBar current={current} total={total} />
-      <LanguageToggle language={language} onChange={setLanguage} isRtl={isRtl} />
-
-      <div dir="ltr" className="fixed top-5 left-1/2 z-50 -translate-x-1/2 rounded-full border border-white/15 bg-black/35 px-3 py-1 text-xs text-brand-muted">
-        {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+      <div className="fixed left-0 right-0 top-0 z-50 px-3 pt-[max(0.5rem,env(safe-area-inset-top))] md:px-6">
+        <div className={`mx-auto flex w-full max-w-7xl items-center justify-between ${isRtl ? "flex-row-reverse" : ""}`}>
+          <LanguageToggle language={language} onChange={setLanguage} isRtl={isRtl} />
+          <div dir="ltr" className="rounded-full border border-white/15 bg-black/40 px-3 py-2 text-xs text-brand-muted">
+            {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </div>
+        </div>
       </div>
 
       <AnimatePresence mode="wait">
@@ -97,7 +106,7 @@ export function SlideDeck() {
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: reduceMotion ? 0.2 : 0.35, ease: "easeOut" }}
-          className="h-full"
+          className="min-h-full"
         >
           {slides[current]}
         </motion.div>

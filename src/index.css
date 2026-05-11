@@ -1,4 +1,4 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -9,6 +9,9 @@
   --text-muted: #a7b0c0;
   --gold: #d8b46a;
   --cyan: #4cc9f0;
+  --font-en: "Space Grotesk", "Inter", "Segoe UI", sans-serif;
+  --font-ar-heading: "Noto Kufi Arabic", "IBM Plex Sans Arabic", sans-serif;
+  --font-ar-body: "IBM Plex Sans Arabic", "Tajawal", "Cairo", sans-serif;
 }
 
 @theme {
@@ -24,24 +27,51 @@
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   color: var(--text-main);
   background:
     radial-gradient(900px 500px at 15% 10%, rgba(76, 201, 240, 0.14), transparent 45%),
     radial-gradient(700px 420px at 82% 78%, rgba(216, 180, 106, 0.12), transparent 45%),
     linear-gradient(155deg, var(--bg-1), var(--bg-2) 42%, var(--bg-3));
-  font-family: "Space Grotesk", "Inter", "Segoe UI", sans-serif;
+  font-family: var(--font-en);
   letter-spacing: 0.01em;
 }
 
 [dir="rtl"] body,
 [dir="rtl"] {
-  font-family: "IBM Plex Sans Arabic", "Tajawal", "Cairo", sans-serif;
+  font-family: var(--font-ar-body);
+  letter-spacing: 0;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--font-ar-heading);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+[dir="rtl"] p,
+[dir="rtl"] li,
+[dir="rtl"] span,
+[dir="rtl"] button,
+[dir="rtl"] a,
+[dir="rtl"] label,
+[dir="rtl"] input,
+[dir="rtl"] textarea {
+  font-family: var(--font-ar-body);
   letter-spacing: 0;
 }
 
@@ -98,9 +128,15 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(0, 0, 0, 0.25);
   color: var(--text-main);
-  padding: 7px 12px;
+  min-height: 44px;
+  padding: 9px 12px;
   font-size: 12px;
   transition: all 160ms ease;
+}
+
+.deck-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 .chip-btn:hover {
@@ -131,6 +167,10 @@ body {
 
 @media (max-width: 768px) {
   body {
-    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .deck-card {
+    max-width: 100%;
   }
 }
