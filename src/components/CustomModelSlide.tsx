@@ -27,12 +27,12 @@ export function CustomModelSlide({ content, isRtl }: { content: any; isRtl: bool
                 >
                   <div className={`mb-1 inline-flex items-center gap-1.5 text-[11px] text-brand-muted ${isRtl ? "flex-row-reverse" : ""}`}>
                     <Icon size={12} className="text-brand-cyan" />
-                    {isRtl ? `??????? ${i + 1}` : `Step ${i + 1}`}
+                    {isRtl ? `المرحلة ${i + 1}` : `Step ${i + 1}`}
                   </div>
                   <h3 className="text-sm font-semibold text-brand-text">{step}</h3>
                   {i < content.custom.lifecycle.length - 1 && (
                     <span className={`hidden md:block absolute top-1/2 -translate-y-1/2 text-brand-muted/60 ${isRtl ? "-left-2.5" : "-right-2.5"}`}>
-                      {isRtl ? "?" : "?"}
+                      {isRtl ? "←" : "→"}
                     </span>
                   )}
                 </motion.article>
