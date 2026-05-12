@@ -12,7 +12,6 @@ import { CustomModelSlide } from "./CustomModelSlide"
 import { DatasetSlide } from "./DatasetSlide"
 import { DataFilesSlide } from "./DataFilesSlide"
 import { ReadinessComparisonSlide } from "./ReadinessComparisonSlide"
-import { DecisionMatrixSlide } from "./DecisionMatrixSlide"
 import { FinalDecisionSlide } from "./FinalDecisionSlide"
 import { LanguageToggle } from "./LanguageToggle"
 import { NavigationControls } from "./NavigationControls"
@@ -30,7 +29,7 @@ export function SlideDeck() {
 
   const slides = useMemo(
     () => [
-      <CoverSlide content={content} isRtl={isRtl} index={0} total={13} onStart={() => setCurrent(1)} />,
+      <CoverSlide content={content} isRtl={isRtl} index={0} total={12} onStart={() => setCurrent(1)} />,
       <ProductIdeaSlide content={content} isRtl={isRtl} />,
       <ChallengeSlide content={content} isRtl={isRtl} />,
       <TrustPrincipleSlide content={content} isRtl={isRtl} />,
@@ -41,7 +40,6 @@ export function SlideDeck() {
       <DatasetSlide content={content} isRtl={isRtl} />,
       <DataFilesSlide content={content} isRtl={isRtl} />,
       <ReadinessComparisonSlide content={content} isRtl={isRtl} />,
-      <DecisionMatrixSlide content={content} isRtl={isRtl} />,
       <FinalDecisionSlide content={content} isRtl={isRtl} />,
     ],
     [content, isRtl],
