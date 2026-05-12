@@ -239,7 +239,6 @@ export const deckContent: Record<Language, LangUI> = {
         text: "This path uses the current books as a knowledge base. When a new dream is submitted, the system searches indexed passages for the closest symbols and contexts, then passes the results to the LLM to generate a source-grounded interpretation.",
         details: [
           "Fits the current data because it is raw book text.",
-          "Faster path to an MVP.",
           "Enables source attribution and traceability.",
           "Easier to add new interpreters and books.",
           "Reduces guessing when retrieval is controlled.",
@@ -253,9 +252,6 @@ export const deckContent: Record<Language, LangUI> = {
         details: [
           "Not suitable as the first step with raw books only.",
           "Requires structured training data.",
-          "Requires ML expertise and infrastructure.",
-          "Harder to cite exact sources.",
-          "May become useful later after collecting real data.",
         ],
         badge: "Later, not now",
       },
@@ -342,10 +338,6 @@ export const deckContent: Record<Language, LangUI> = {
         {
           title: "Lower Hallucination Risk",
           text: "When the LLM receives relevant passages before answering, it relies less on general memory and is less likely to mix sources or invent meanings.",
-        },
-        {
-          title: "Faster MVP Path",
-          text: "Instead of waiting to build a large supervised dataset, we can build a first working version using the current books after cleaning and indexing.",
         },
       ],
       takeaway:
